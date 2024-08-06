@@ -1,0 +1,70 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js for backend
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.20'
+        cache: 'npm'
+
+    - name: Install dependencies for backend
+      working-directory: ./backend
+      run: npm install
+
+    - name: Build backend
+      working-directory: ./backend
+      env:
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
+        APP_KEYS: ${{ secrets.APP_KEYS }}
+        API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT }}
+        ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET }}
+        TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_API_URL: ${{ secrets.SUPABASE_API_URL }}
+        SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
+        SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET }}
+        SUPABASE_DIRECTORY: ${{ secrets.SUPABASE_DIRECTORY }}
+        DATABASE_CLIENT: ${{ secrets.DATABASE_CLIENT }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        DATABASE_SHEMA: ${{ secrets.DATABASE_SHEMA }}
+        DATABASE_POOL_MIN: ${{ secrets.DATABASE_POOL_MIN }}
+        DATABASE_POOL_MAX: ${{ secrets.DATABASE_POOL_MAX }}
+      run: npm run build && npm run start
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    needs: build-backend
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js for frontend
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.20'
+        cache: 'npm'
+
+    - name: Install dependencies for frontend
+      working-directory: ./frontend
+      run: npm install
+
+    - name: Build frontend
+      working-directory: ./frontend
+      env:
+        # Ajoutez des variables d'environnement spécifiques au frontend si nécessaire
+      run: npm run build && npm run dev
