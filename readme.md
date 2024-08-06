@@ -1,20 +1,15 @@
-# Shoe Store Ecommerce Website (Next.js, Tailwind CSS, Strapi)
+#  Ecommerce Website (Next.js, Tailwind CSS, Strapi,Supabase)
 
-![Shoe Store Logo](https://nextshoestore.vercel.app/logo.svg)
 
-Welcome to our Shoe Store Ecommerce website repository! This project is a simple Nike clone, built using modern technologies to deliver an exceptional shopping experience for shoe enthusiasts. The website is powered by Next.js for frontend rendering, Tailwind CSS for styling, Strapi for the backend, PostgreSQL for the database, and Stripe as the payment gateway.
 
 ## Features
 
-- Browse and explore a diverse collection of shoes.
+- Browse and explore a diverse collection of products.
 - View detailed product information and images.
 - Add products to the shopping cart.
 - Secure and easy checkout process with Stripe payment integration.
 - Admin panel to manage products, inventory, and orders.
 
-## Demo
-
-Link to live demo : [Next Shoe Store](https://nextshoestore.vercel.app)
 
 ## Technologies Used
 
